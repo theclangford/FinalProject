@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="buttonOne">Food Nutrition Database</string>
+    <string name="buttonTwo">CBC News Reader</string>
+    <string name="buttonThree">Movie Information</string>
+    <string name="buttonFour">OC Bus Route</string>
+</resources>
