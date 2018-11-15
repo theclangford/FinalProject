@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="group.finalproject">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +21,8 @@
         <activity android:name=".FoodActivity" />
         <activity android:name=".CBCActivity" />
         <activity android:name=".MovieActivity" />
-        <activity android:name=".BusActivity"></activity>
+        <activity android:name=".BusActivity" />
+        <activity android:name=".ArticleDetails"></activity>
     </application>
 
 </manifest>
