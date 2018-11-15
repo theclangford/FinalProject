@@ -4,4 +4,12 @@
     <string name="buttonTwo">CBC News Reader</string>
     <string name="buttonThree">Movie Information</string>
     <string name="buttonFour">OC Bus Route</string>
+    <string name="buttonNewStop">Enter New Stop</string>
+    <string name="labelStopData">Stop Numbers</string>
+    <string name="labelNumberData">Bus Numbers</string>
+    <string name="labelDestination">Destination:</string>
+    <string name="labelCoordinates">Latitude and Longitude:</string>
+    <string name="labelSpeedGPS">GPS Speed:</string>
+    <string name="labelTimeStart">Trip Start Time:</string>
+    <string name="labelAdjustedTime">Adjusted Schedule Time:</string>
 </resources>
