@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.content.Intent;
 
+import group.finalproject.food.FoodActivity;
+
 
 public class LandingPageActivity extends Activity {
 

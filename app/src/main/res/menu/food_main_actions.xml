@@ -19,4 +19,9 @@
         android:orderInCategory="500"
         app:showAsAction="never" />
 
+    <item android:id="@+id/goToFav"
+        android:title="@string/goToFav"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
 </menu>

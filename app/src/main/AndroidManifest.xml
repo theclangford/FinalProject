@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FoodActivity"
+        <activity
+            android:name=".food.FoodActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -31,7 +32,8 @@
         <activity android:name=".CBCActivity" />
         <activity android:name=".MovieActivity" />
         <activity android:name=".BusActivity" />
-        <activity android:name=".FoodFavourites" />
+        <activity android:name=".food.FoodFavourites" />
+        <activity android:name=".food.FoodDetail"></activity>
     </application>
 
 </manifest>

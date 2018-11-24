@@ -1,4 +1,4 @@
-package group.finalproject;
+package group.finalproject.food;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,17 +10,24 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import group.finalproject.R;
+
 public class FoodFavourites extends AppCompatActivity {
 
-    Button setFat;
-    LinearLayout foodFav;
-
     protected final String ACTIVITY_NAME = "FoodFavouritesActivity";
+
+    protected ArrayList<Food> favorites;
+    protected FoodItemAdapter favoritesAdapter;
+    FoodDatabaseHelper foodDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +35,14 @@ public class FoodFavourites extends AppCompatActivity {
         setContentView(R.layout.activity_food_favourites);
         Log.i(ACTIVITY_NAME, "In onCreate");
 
-    }
+        ListView favResultsView = (ListView) findViewById(R.id.foodFav);
 
+        foodDatabase = FoodDatabaseHelper.getInstance(this);
+        favorites = foodDatabase.getAllFoods();
+        favoritesAdapter = new FoodItemAdapter(FoodFavourites.this);
+        favoritesAdapter.setList(favorites);
+        favResultsView.setAdapter(favoritesAdapter);
+    }
 
     @Override
     protected void onResume() {

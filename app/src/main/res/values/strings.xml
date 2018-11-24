@@ -17,4 +17,8 @@
     <string name="foodSearch">Search foods</string>
     <string name="authorInfo">Created by Harry Hum</string>
     <string name="instructionsFood">Search the food database for any food item to retrieve nutrition information. Optionally filter food items by calories and fat. Add food items to a list of favorites and check items to calculate total calories and fats.</string>
+    <string name="favAdded">Added to favorites</string>
+    <string name="undo">Undo</string>
+    <string name="alreadyExists">Item is already in favorites!</string>
+    <string name="goToFav">Go to favorites</string>
 </resources>

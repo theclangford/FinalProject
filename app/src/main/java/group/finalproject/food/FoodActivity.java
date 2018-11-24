@@ -1,8 +1,9 @@
-package group.finalproject;
+package group.finalproject.food;
 
 //example query
 //https://api.edamam.com/api/food-database/parser?ingr=red%20apple&app_id=1b640846&app_key=a617689707e1a1f8da7793816768f37e
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
@@ -11,7 +12,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -21,8 +28,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -43,15 +48,19 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import group.finalproject.R;
+// can send data with a singleton arraylist of foods or make a database and query it
 public class FoodActivity extends AppCompatActivity {
     private final String ACTIVITY_NAME = "FoodActivity";
     private final double ACTIVITY_VERSION = 1.0;
     private final String URL_STRING = "https://api.edamam.com/api/food-database/parser?ingr=";
     private final String API_KEY = "&app_id=1b640846&app_key=a617689707e1a1f8da7793816768f37e";
     private float dpi;
+    private boolean isLandscape;
 
     protected ListView foodResultsView;
     protected ArrayList<Food> foodResults;
+    FoodDatabaseHelper foodDatabase;
     protected AlertDialog filtersDialog;
     protected AlertDialog helpDialog;
     protected android.support.v7.widget.Toolbar toolbar;
@@ -85,6 +94,80 @@ public class FoodActivity extends AppCompatActivity {
             foodQuery.execute();
         }
 
+        // Determine if landscape view exists
+        View frameLayout = findViewById(R.id.itemDetailFrag);
+        isLandscape = (frameLayout != null);
+
+        // Get singleton favorites food database
+        foodDatabase = FoodDatabaseHelper.getInstance(this);
+
+        // Set item onClick action to show detail in respective views
+        foodResultsView.setOnItemClickListener((parent, view, position, id) -> {
+
+            // Create bundle to pass item calories, fats, protein, carbs, fiber
+            Bundle itemInfo = new Bundle();
+            Food currentItem = foodResults.get(position);
+            itemInfo.putDouble("cal", currentItem.getCalories());
+            itemInfo.putDouble("fat", currentItem.getFats());
+            itemInfo.putDouble("protein", currentItem.getProtein());
+            itemInfo.putDouble("carbs", currentItem.getCarbs());
+            itemInfo.putDouble("fiber", currentItem.getFiber());
+            itemInfo.putInt("position", position);
+
+            // Show detail fragment
+            if (isLandscape) {
+                FoodDetailFragment fragment = new FoodDetailFragment();
+                fragment.isLandscape = true;
+                fragment.setArguments(itemInfo);
+
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ftrans = fm.beginTransaction();
+                ftrans.replace(R.id.itemDetailFrag, fragment);
+                ftrans.addToBackStack("");
+                ftrans.commit();
+            } else {
+                Intent detailIntent = new Intent(this, FoodDetail.class);
+                detailIntent.putExtras(itemInfo);
+                startActivityForResult(detailIntent, 111);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 111 && resultCode == 222) {
+            int position = data.getIntExtra("position", 0);
+            addItemToFavs(position);
+        }
+    }
+
+    // Add item to favorites db
+    void addItemToFavs(int position) {
+        Food item = foodResults.get(position);
+        if (!foodDatabase.contains(item.getName(), item.getBrand())) {
+            foodDatabase.addFood(item);
+            Snackbar added = Snackbar.make(foodResultsView, R.string.favAdded, Snackbar.LENGTH_SHORT);
+            added.setAction(R.string.undo, v -> {
+                foodDatabase.deleteFood(item.getName(), item.getBrand());
+                Log.i(ACTIVITY_NAME, "Item at position " + position + " removed from favorites database.");
+            });
+            added.show();
+        } else {
+            Toast alreadyExists = Toast.makeText(this, R.string.alreadyExists, Toast.LENGTH_SHORT);
+            alreadyExists.show();
+        }
+        Log.i(ACTIVITY_NAME, "Item at position " + position + " added to favorites database.");
+    }
+
+    // Remove item from favorites db
+    void removeItemFromFavs(int position) {
+        Food item = foodResults.get(position);
+        if (foodDatabase.contains(item.getName(), item.getBrand())) {
+            foodDatabase.deleteFood(item.getName(), item.getBrand());
+            Log.i(ACTIVITY_NAME, "Item at position " + position + " removed from favorites database.");
+        } else {
+            Log.i(ACTIVITY_NAME, "Item at position " + position + " is not contained in favorites database");
+        }
     }
 
     @Override
@@ -118,6 +201,10 @@ public class FoodActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //Handle presses on the action bar items
         switch (item.getItemId()) {
+            case R.id.goToFav:
+                Intent toFav = new Intent(this, FoodFavourites.class);
+                startActivity(toFav);
+                break;
             case R.id.filters:
                 openFilterDialog();
                 break;
@@ -126,42 +213,6 @@ public class FoodActivity extends AppCompatActivity {
                 break;
         }
         return true;
-    }
-
-    private class FoodItemAdapter extends ArrayAdapter<Food> {
-        FoodItemAdapter(Context ctx) {
-            super(ctx, 0);
-        }
-
-        @Override
-        public int getCount() {
-            return foodResults.size();
-        }
-
-        @Override
-        public Food getItem(int position) {
-            return foodResults.get(position);
-        }
-
-//        @Override
-//        public long getItemId(int position) {
-//            return super.getItemId(position);
-//        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = FoodActivity.this.getLayoutInflater();
-            View result = null;
-            result = inflater.inflate(R.layout.food_item, null);
-
-            TextView name = (TextView) result.findViewById(R.id.itemName);
-            TextView brand = (TextView) result.findViewById(R.id.itemBrand);
-
-            name.setText(getItem(position).getName());
-            brand.setText(getItem(position).getBrand());
-
-            return result;
-        }
     }
 
     private class FoodQuery extends AsyncTask<String, Integer, ArrayList<Food>> {
@@ -213,6 +264,9 @@ public class FoodActivity extends AppCompatActivity {
                     String name = "";
                     double calories = 0;
                     double fats = 0;
+                    double protein = 0;
+                    double carbs = 0;
+                    double fiber = 0;
                     String brand = "";
 
                     if (currentItem.has("label"))
@@ -224,13 +278,22 @@ public class FoodActivity extends AppCompatActivity {
                     if (currentItem.getJSONObject("nutrients").has("FAT"))
                         fats = currentItem.getJSONObject("nutrients").getDouble("FAT");
 
+                    if (currentItem.getJSONObject("nutrients").has("PROCNT"))
+                        protein = currentItem.getJSONObject("nutrients").getDouble("PROCNT");
+
+                    if (currentItem.getJSONObject("nutrients").has("CHOCDF"))
+                        carbs = currentItem.getJSONObject("nutrients").getDouble("CHOCDF");
+
+                    if (currentItem.getJSONObject("nutrients").has("FIBTG"))
+                        fiber = currentItem.getJSONObject("nutrients").getDouble("FIBTG");
+
                     if (currentItem.has("brand"))
                         brand = currentItem.getString("brand");
 
                     if (currentItem.getString("category").equals("Generic foods")) {
-                        foodResults.add(new Food(name, calories, fats));
+                        foodResults.add(new Food(name, calories, fats, protein, carbs, fiber));
                     } else if (currentItem.getString("category").equals("Packaged foods")) {
-                        foodResults.add(new Food(name, calories, fats, brand));
+                        foodResults.add(new Food(name, calories, fats, protein, carbs, fiber, brand));
                     }
                     publishProgress(100);
                 }
@@ -244,6 +307,7 @@ public class FoodActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Food> foods) {
             super.onPostExecute(foods);
             foodItemAdapter = new FoodItemAdapter(FoodActivity.this);
+            foodItemAdapter.setList(foodResults);
             foodResultsView.setAdapter(foodItemAdapter);
             searchProgress.setVisibility(View.GONE);
 
@@ -296,16 +360,26 @@ public class FoodActivity extends AppCompatActivity {
         // Set View
         LayoutInflater inflater = getLayoutInflater();
         View filterFood = inflater.inflate(R.layout.food_filters, null);
-        final EditText calMin = filterFood.findViewById(R.id.calMin);
-        final EditText calMax = filterFood.findViewById(R.id.calMax);
-        final EditText fatMin = filterFood.findViewById(R.id.fatMin);
-        final EditText fatMax = filterFood.findViewById(R.id.fatMax);
+        final EditText calMinField = filterFood.findViewById(R.id.calMin);
+        final EditText calMaxField = filterFood.findViewById(R.id.calMax);
+        final EditText fatMinField = filterFood.findViewById(R.id.fatMin);
+        final EditText fatMaxField = filterFood.findViewById(R.id.fatMax);
         filtersDialog.setView(filterFood);
 
         // Set Button
         filtersDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.N)
+            @RequiresApi(api = Build.VERSION_CODES.N)
             public void onClick(DialogInterface dialog, int which) {
-                // Perform Action on Button
+//                // Remove all food items in the results list which are outside of the filter range
+//                int calMin = Integer.parseInt(calMinField.getText().toString());
+//                int calMax = Integer.parseInt(calMaxField.getText().toString());
+//                int fatMin = Integer.parseInt(fatMinField.getText().toString());
+//                int fatMax = Integer.parseInt(fatMaxField.getText().toString());
+//                Predicate<Food> foodPredicate = f -> (f.getCalories() < calMin || f.getCalories() > calMax || f.getFats() < fatMin || f.getFats() > fatMax);
+//                foodResults.removeIf(foodPredicate);
+//
+//                foodItemAdapter.notifyDataSetChanged();
             }
         });
 
