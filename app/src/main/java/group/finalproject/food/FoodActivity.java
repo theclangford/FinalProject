@@ -1,8 +1,5 @@
 package group.finalproject.food;
 
-//example query
-//https://api.edamam.com/api/food-database/parser?ingr=red%20apple&app_id=1b640846&app_key=a617689707e1a1f8da7793816768f37e
-
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -49,7 +46,16 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import group.finalproject.R;
-// can send data with a singleton arraylist of foods or make a database and query it
+
+/**
+ * Main food activity which contains the search toolbar and
+ * displays the search results in a list view.
+ *
+ * @author Harry Hum
+ * @version 1.0
+ * @since 2018-11-25
+ */
+
 public class FoodActivity extends AppCompatActivity {
     private final String ACTIVITY_NAME = "FoodActivity";
     private final double ACTIVITY_VERSION = 1.0;
@@ -68,6 +74,10 @@ public class FoodActivity extends AppCompatActivity {
     protected FoodItemAdapter foodItemAdapter;
     protected TextView mainMessage;
 
+    /**
+     * Initialize textview, progressbar, toolbar, listview and set actions for search and listview.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,19 +86,19 @@ public class FoodActivity extends AppCompatActivity {
         dpi = this.getResources().getDisplayMetrics().density;
 
         // Get main message textview
-        mainMessage = (TextView) findViewById(R.id.mainMessage);
+        mainMessage = findViewById(R.id.mainMessage);
 
         // Get search progressbar
-        searchProgress = (ProgressBar) findViewById(R.id.searchProgress);
+        searchProgress = findViewById(R.id.searchProgress);
         searchProgress.setVisibility(View.INVISIBLE);
 
         // Get toolbar
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.foodSearch);
 
         // Get listview
-        foodResultsView = (ListView) findViewById(R.id.resultsList);
+        foodResultsView = findViewById(R.id.resultsList);
 
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
@@ -138,16 +148,27 @@ public class FoodActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Perform actions based on activity results.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Add item to favorites if code matches
         if (requestCode == 111 && resultCode == 222) {
             int position = data.getIntExtra("position", 0);
             addItemToFavs(position);
         }
     }
 
-    // Add item to favorites db
-    void addItemToFavs(int position) {
+    /**
+     * Add an item to the favorites database and shows a snackbar with an undo option.
+     * If item is already in the database, show toast with warning.
+     * @param position
+     */
+    protected void addItemToFavs(int position) {
         Food item = foodResults.get(position);
         if (!foodDatabase.contains(item.getName(), item.getBrand())) {
             foodDatabase.addFood(item);
@@ -166,6 +187,11 @@ public class FoodActivity extends AppCompatActivity {
         Log.i(ACTIVITY_NAME, "Item at position " + position + " added to favorites database.");
     }
 
+    /**
+     * Create menu items.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Inflate menu items for use
@@ -182,7 +208,12 @@ public class FoodActivity extends AppCompatActivity {
         return true;
     }
 
-    // Create custom search url
+    /**
+     * Create the URL to query the edamam nutrition API.
+     * @param query
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     private URL createQueryURL(String query) throws UnsupportedEncodingException {
         URL url = null;
         try {
@@ -193,6 +224,11 @@ public class FoodActivity extends AppCompatActivity {
         return url;
     }
 
+    /**
+     * Add actions to menu items.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //Handle presses on the action bar items
@@ -211,6 +247,9 @@ public class FoodActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Async task to fetch an ArrayList of Food from the edamam nutrition API.
+     */
     private class FoodQuery extends AsyncTask<String, Integer, ArrayList<Food>> {
 
         private String query;
@@ -313,7 +352,10 @@ public class FoodActivity extends AppCompatActivity {
         }
     }
 
-    // Code adapted from https://medium.com/viithiisys/android-custom-dialog-box-fce3a039c695
+    /**
+     * Create dialog for help menu item.
+     * Code adapted from https://medium.com/viithiisys/android-custom-dialog-box-fce3a039c695
+      */
     protected void openHelpDialog() {
         helpDialog = new AlertDialog.Builder(this).create();
 
@@ -340,7 +382,10 @@ public class FoodActivity extends AppCompatActivity {
         helpDialog.show();
     }
 
-    // Code adapted from https://medium.com/viithiisys/android-custom-dialog-box-fce3a039c695
+    /**
+     * Create dialog for filter menu item.
+     * Code adapted from https://medium.com/viithiisys/android-custom-dialog-box-fce3a039c695
+     */
     protected void openFilterDialog() {
         filtersDialog = new AlertDialog.Builder(this).create();
 

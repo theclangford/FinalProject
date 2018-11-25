@@ -10,7 +10,7 @@ import group.finalproject.R;
 
 public class FavFoodItemAdapter extends FoodItemAdapter {
 
-    FoodDatabaseHelper foodDatabase;
+    private FoodDatabaseHelper foodDatabase;
 
     FavFoodItemAdapter(Context ctx) {
         super(ctx);
@@ -24,11 +24,11 @@ public class FavFoodItemAdapter extends FoodItemAdapter {
         result = inflater.inflate(R.layout.food_item, null);
         Food currentItem = getItem(position);
 
-        TextView name = (TextView) result.findViewById(R.id.itemName);
-        TextView brand = (TextView) result.findViewById(R.id.itemBrand);
-        TextView cal = (TextView) result.findViewById(R.id.itemCal);
-        TextView fat = (TextView) result.findViewById(R.id.itemFat);
-        TextView tag = (TextView) result.findViewById(R.id.itemTag);
+        TextView name = result.findViewById(R.id.itemName);
+        TextView brand = result.findViewById(R.id.itemBrand);
+        TextView cal = result.findViewById(R.id.itemCal);
+        TextView fat = result.findViewById(R.id.itemFat);
+        TextView tag = result.findViewById(R.id.itemTag);
 
         name.setText(currentItem.getName());
         brand.setText(currentItem.getBrand());

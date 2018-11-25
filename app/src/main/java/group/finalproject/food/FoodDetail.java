@@ -24,7 +24,7 @@ public class FoodDetail extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ftrans = fm.beginTransaction();
         ftrans.replace(R.id.itemDetailPhone, fragment);
-        ftrans.addToBackStack("");
         ftrans.commit();
     }
+
 }

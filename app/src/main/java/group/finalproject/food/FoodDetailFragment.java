@@ -73,4 +73,5 @@ public class FoodDetailFragment extends Fragment {
         if (isLandscape)
             parent = (FoodActivity) context;
     }
+
 }

@@ -1,42 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".food.FoodActivity">
+    tools:context=".food.FoodActivity"
+    android:background="#f9fce9">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/itemList"
         android:layout_width="400dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#f9fce9">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#8fb179">
         </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/mainMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="#f9fce9"
+            android:gravity="center"
+            android:text="@string/mainMessage"
+            android:textSize="24sp" />
 
         <ProgressBar
             android:id="@+id/searchProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_centerInParent="true"
+            android:background="#f9fce9" />
 
         <ListView
             android:id="@+id/resultsList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </ListView>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:background="#f9fce9"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <FrameLayout
         android:id="@+id/itemDetailFrag"
         android:layout_toEndOf="@+id/itemList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

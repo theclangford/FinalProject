@@ -40,10 +40,10 @@ class FoodItemAdapter extends ArrayAdapter<Food> {
         View result = null;
         result = inflater.inflate(R.layout.food_item, null);
 
-        TextView name = (TextView) result.findViewById(R.id.itemName);
-        TextView brand = (TextView) result.findViewById(R.id.itemBrand);
-        TextView cal = (TextView) result.findViewById(R.id.itemCal);
-        TextView fat = (TextView) result.findViewById(R.id.itemFat);
+        TextView name = result.findViewById(R.id.itemName);
+        TextView brand = result.findViewById(R.id.itemBrand);
+        TextView cal = result.findViewById(R.id.itemCal);
+        TextView fat = result.findViewById(R.id.itemFat);
 
         name.setText(getItem(position).getName());
         brand.setText(getItem(position).getBrand());

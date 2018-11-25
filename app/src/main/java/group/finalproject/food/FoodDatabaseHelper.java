@@ -11,25 +11,29 @@ import java.util.ArrayList;
 
 import static android.support.constraint.Constraints.TAG;
 
-// used guide from https://guides.codepath.com/android/local-databases-with-sqliteopenhelper
+/**
+ * Singleton database to store food items.
+ * Attributes include name, calories, fat, brand, protein, carbohydrates, fiber and tag
+ * Used guide from https://guides.codepath.com/android/local-databases-with-sqliteopenhelper
+  */
 
 public class FoodDatabaseHelper extends SQLiteOpenHelper {
 
-    final String ACTIVITY_NAME = "FoodDatabaseHelper";
-    static final String DATABASE_NAME = "Favorites.db";
-    static final int VERSION_NUM = 1;
+    private final String ACTIVITY_NAME = "FoodDatabaseHelper";
+    private static final String DATABASE_NAME = "Favorites.db";
+    private static final int VERSION_NUM = 1;
 
-    static final String TABLE_NAME = "FAVORITES";
+    private static final String TABLE_NAME = "FAVORITES";
 
-    static final String KEY_ID = "_id";
-    static final String KEY_NAME = "NAME";
-    static final String KEY_CAL = "CAL";
-    static final String KEY_FAT = "FAT";
-    static final String KEY_BRAND = "BRAND";
-    static final String KEY_PROTEIN = "PROTEIN";
-    static final String KEY_CARB = "CARB";
-    static final String KEY_FIBER = "FIBER";
-    static final String KEY_TAG = "TAG";
+    private static final String KEY_ID = "_id";
+    private static final String KEY_NAME = "NAME";
+    private static final String KEY_CAL = "CAL";
+    private static final String KEY_FAT = "FAT";
+    private static final String KEY_BRAND = "BRAND";
+    private static final String KEY_PROTEIN = "PROTEIN";
+    private static final String KEY_CARB = "CARB";
+    private static final String KEY_FIBER = "FIBER";
+    private static final String KEY_TAG = "TAG";
 
     private static FoodDatabaseHelper helperInstance;
 
@@ -39,6 +43,10 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         return helperInstance;
     }
 
+    /**
+     * Add a food item to the database.
+     * @param food
+     */
     public void addFood(Food food) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -63,6 +71,10 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Retrieve the sum, average, max, and min calories from unique tags in the database.
+     * @return an ArrayList of Tags
+     */
     public ArrayList<Tag> getTags() {
         ArrayList<Tag> tags = new ArrayList<>();
 
@@ -98,6 +110,10 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         return tags;
     }
 
+    /**
+     * Retrieve all food items contained in the database.
+     * @return an ArrayList of Food
+     */
     public ArrayList<Food> getAllFoods() {
         ArrayList<Food> foods = new ArrayList<>();
 
@@ -130,6 +146,11 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         return foods;
     }
 
+    /**
+     * Updates the tag attribute of an entry.
+     * @param id
+     * @param tag
+     */
     public void updateFoodTag(double id, String tag) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -139,6 +160,10 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, values, KEY_ID + " = ?", new String[] {String.valueOf(id)});
     }
 
+    /**
+     * Deletes a entry from the database by searching the id.
+     * @param id
+     */
     public void deleteFood(double id) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
@@ -152,6 +177,11 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Deletes an entry from the database by searching the name / brand.
+     * @param name
+     * @param brand
+     */
     public void deleteFood(String name, String brand) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
@@ -165,6 +195,12 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Checks if an entry exists in the database by searching the name / brand.
+     * @param name
+     * @param brand
+     * @return true if entry exists in database.
+     */
     public boolean contains(String name, String brand) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new String[] {KEY_NAME, KEY_BRAND}, KEY_NAME + " = ? AND " + KEY_BRAND + " = ?", new String[] {name, brand}, null, null, null);

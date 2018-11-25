@@ -39,10 +39,10 @@ public class TagSummaryAdapter extends ArrayAdapter {
         View result = null;
         result = inflater.inflate(R.layout.tag_summary, null);
 
-        TextView details = (TextView) result.findViewById(R.id.tagDetails);
+        TextView details = result.findViewById(R.id.tagDetails);
         Tag currentItem = getItem(position);
 
-        details.setText(String.format("Calories for #%s - Total: %.0f, Average: %.0f, Max: %.0f, Min: %.0f", currentItem.getName(), currentItem.getSum(), currentItem.getAverage(), currentItem.getMax(), currentItem.getMin()));
+        details.setText(String.format("#%s cals - total: %.0f, avg: %.0f, max: %.0f, min: %.0f", currentItem.getName(), currentItem.getSum(), currentItem.getAverage(), currentItem.getMax(), currentItem.getMin()));
 
         return result;
     }

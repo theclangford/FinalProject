@@ -1,15 +1,10 @@
 package group.finalproject.food;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,12 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import group.finalproject.R;
 
@@ -39,14 +31,18 @@ public class FoodFavourites extends AppCompatActivity {
     FoodDatabaseHelper foodDatabase;
     AlertDialog favItemDialog;
 
+    /**
+     * Initialize views and set list adapters.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_favourites);
         Log.i(ACTIVITY_NAME, "In onCreate");
 
-        ListView tagsView = (ListView) findViewById(R.id.tagSummary);
-        ListView favResultsView = (ListView) findViewById(R.id.foodFav);
+        ListView tagsView = findViewById(R.id.tagSummary);
+        ListView favResultsView = findViewById(R.id.foodFav);
 
         foodDatabase = FoodDatabaseHelper.getInstance(this);
         tags = foodDatabase.getTags();
@@ -65,7 +61,11 @@ public class FoodFavourites extends AppCompatActivity {
 
     }
 
-    // Code adapted from https://medium.com/viithiisys/android-custom-dialog-box-fce3a039c695
+    /**
+     * Create options dialog for favorite items.
+     * Code adapted from https://medium.com/viithiisys/android-custom-dialog-box-fce3a039c695
+     * @param item
+     */
     protected void openOptionsDialog(Food item) {
         favItemDialog = new AlertDialog.Builder(this).create();
 

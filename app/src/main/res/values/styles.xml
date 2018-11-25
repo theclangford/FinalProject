@@ -5,4 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="FoodActivity" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>

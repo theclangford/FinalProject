@@ -8,13 +8,13 @@
     <ListView
         android:id="@+id/tagSummary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:background="#8fb179"/>
 
     <ListView
         android:id="@+id/foodFav"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="match_parent"
+        android:background="#f9fce9"/>
 
 </LinearLayout>
