@@ -60,12 +60,13 @@ public class FoodActivity extends AppCompatActivity {
 
     protected ListView foodResultsView;
     protected ArrayList<Food> foodResults;
-    FoodDatabaseHelper foodDatabase;
+    protected FoodDatabaseHelper foodDatabase;
     protected AlertDialog filtersDialog;
     protected AlertDialog helpDialog;
     protected android.support.v7.widget.Toolbar toolbar;
     protected ProgressBar searchProgress;
     protected FoodItemAdapter foodItemAdapter;
+    protected TextView mainMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,9 @@ public class FoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food);
         Log.i(ACTIVITY_NAME, "In onCreate()");
         dpi = this.getResources().getDisplayMetrics().density;
+
+        // Get main message textview
+        mainMessage = (TextView) findViewById(R.id.mainMessage);
 
         // Get search progressbar
         searchProgress = (ProgressBar) findViewById(R.id.searchProgress);
@@ -89,6 +93,7 @@ public class FoodActivity extends AppCompatActivity {
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            mainMessage.setVisibility(View.GONE);
             String query = intent.getStringExtra(SearchManager.QUERY);
             FoodQuery foodQuery = new FoodQuery(query);
             foodQuery.execute();
@@ -150,6 +155,8 @@ public class FoodActivity extends AppCompatActivity {
             added.setAction(R.string.undo, v -> {
                 foodDatabase.deleteFood(item.getName(), item.getBrand());
                 Log.i(ACTIVITY_NAME, "Item at position " + position + " removed from favorites database.");
+                Toast itemRemoved = Toast.makeText(this, R.string.itemRemoved, Toast.LENGTH_SHORT);
+                itemRemoved.show();
             });
             added.show();
         } else {
@@ -157,17 +164,6 @@ public class FoodActivity extends AppCompatActivity {
             alreadyExists.show();
         }
         Log.i(ACTIVITY_NAME, "Item at position " + position + " added to favorites database.");
-    }
-
-    // Remove item from favorites db
-    void removeItemFromFavs(int position) {
-        Food item = foodResults.get(position);
-        if (foodDatabase.contains(item.getName(), item.getBrand())) {
-            foodDatabase.deleteFood(item.getName(), item.getBrand());
-            Log.i(ACTIVITY_NAME, "Item at position " + position + " removed from favorites database.");
-        } else {
-            Log.i(ACTIVITY_NAME, "Item at position " + position + " is not contained in favorites database");
-        }
     }
 
     @Override
@@ -240,7 +236,7 @@ public class FoodActivity extends AppCompatActivity {
                 // Connect to custom API query
                 URL url = createQueryURL(query);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                publishProgress(20);
+                publishProgress(10);
 
                 // Read result and store in string
                 BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -250,13 +246,13 @@ public class FoodActivity extends AppCompatActivity {
                 while ((line = reader.readLine()) != null)
                     sb.append(line + "\n");
                 String result = sb.toString();
-                publishProgress(40);
+                publishProgress(20);
 
                 // Store string in JSON
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray foods = jsonObject.getJSONArray("hints");
                 System.out.println(foods.length());
-                publishProgress(60);
+                publishProgress(30);
 
                 // Create Food objects to store in array
                 for (int i = 0; i < foods.length(); i++) {
@@ -295,7 +291,7 @@ public class FoodActivity extends AppCompatActivity {
                     } else if (currentItem.getString("category").equals("Packaged foods")) {
                         foodResults.add(new Food(name, calories, fats, protein, carbs, fiber, brand));
                     }
-                    publishProgress(100);
+                    publishProgress(50);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -305,6 +301,7 @@ public class FoodActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Food> foods) {
+            publishProgress(100);
             super.onPostExecute(foods);
             foodItemAdapter = new FoodItemAdapter(FoodActivity.this);
             foodItemAdapter.setList(foodResults);

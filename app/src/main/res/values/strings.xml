@@ -21,4 +21,8 @@
     <string name="undo">Undo</string>
     <string name="alreadyExists">Item is already in favorites!</string>
     <string name="goToFav">Go to favorites</string>
+    <string name="itemRemoved">Item removed</string>
+    <string name="addTag">Add tag:</string>
+    <string name="tagHint">ex. breakfast</string>
+    <string name="mainMessage">Search for something you ate!</string>
 </resources>

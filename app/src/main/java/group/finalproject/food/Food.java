@@ -1,9 +1,6 @@
 package group.finalproject.food;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class Food implements Parcelable {
+public class Food {
 
     private double id;
     private String name;
@@ -13,10 +10,9 @@ public class Food implements Parcelable {
     private double protein;
     private double carbs;
     private double fiber;
+    private String tag;
 
-    Food() {
-
-    }
+    Food() {}
 
     Food(String name, double calories, double fats, double protein, double carbs, double fiber) {
         this.name = name;
@@ -33,44 +29,13 @@ public class Food implements Parcelable {
         setBrand(brand);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeDouble(calories);
-        dest.writeDouble(fats);
-        dest.writeString(brand);
-        dest.writeDouble(protein);
-        dest.writeDouble(carbs);
-        dest.writeDouble(fiber);
-    }
+    public String getTag() { return tag; }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Parcelable.Creator<Food> CREATOR
-            = new Parcelable.Creator<Food>() {
-        public Food createFromParcel(Parcel in) {
-            return new Food(in);
-        }
-
-        public Food[] newArray(int size) {
-            return new Food[size];
-        }
-    };
-
-    private Food(Parcel in) {
-        name = in.readString();
-        calories = in.readDouble();
-        fats = in.readDouble();
-        brand = in.readString();
-        protein = in.readDouble();
-        carbs = in.readDouble();
-        fiber = in.readDouble();
-    }
+    public void setTag(String tag) { this.tag = tag; }
 
     public void setId(double id) { this.id = id; }
+
+    public double getId() { return id; }
 
     public String getName() {
         return name;

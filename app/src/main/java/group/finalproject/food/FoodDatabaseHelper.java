@@ -63,6 +63,41 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public ArrayList<Tag> getTags() {
+        ArrayList<Tag> tags = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(true, TABLE_NAME,
+                new String[] {KEY_TAG,
+                        "SUM(" + KEY_CAL + ") AS TotalCal",
+                        "AVG(" + KEY_CAL + ") AS AvgCal",
+                        "MAX(" + KEY_CAL + ") AS MaxCal",
+                        "MIN(" + KEY_CAL + ") AS MinCal"},
+                KEY_TAG + " <> ? ",
+                new  String[] {""}, KEY_TAG, null, null, null);
+
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    String name = cursor.getString(cursor.getColumnIndex(KEY_TAG));
+                    double sum = cursor.getDouble(cursor.getColumnIndex("TotalCal"));
+                    double average = cursor.getDouble(cursor.getColumnIndex("AvgCal"));
+                    double max = cursor.getDouble(cursor.getColumnIndex("MaxCal"));
+                    double min = cursor.getDouble(cursor.getColumnIndex("MinCal"));
+                    Tag tag = new Tag(name, sum, average, max, min);
+                    tags.add(tag);
+                } while(cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to get tags from database");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return tags;
+    }
+
     public ArrayList<Food> getAllFoods() {
         ArrayList<Food> foods = new ArrayList<>();
 
@@ -81,6 +116,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
                     food.setProtein(cursor.getDouble(cursor.getColumnIndex(KEY_PROTEIN)));
                     food.setCarbs(cursor.getDouble(cursor.getColumnIndex(KEY_CARB)));
                     food.setFiber(cursor.getDouble(cursor.getColumnIndex(KEY_FIBER)));
+                    food.setTag(cursor.getString(cursor.getColumnIndex(KEY_TAG)));
                     foods.add(food);
                 } while(cursor.moveToNext());
             }
