@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.content.Intent;
 
+import group.finalproject.food.FoodActivity;
+
 
 public class LandingPageActivity extends Activity {
 
@@ -13,10 +15,10 @@ public class LandingPageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
-        Button btn1 = (Button) findViewById(R.id.btnOne);
-        Button btn2 = (Button) findViewById(R.id.btnTwo);
-        Button btn3 = (Button) findViewById(R.id.btnThree);
-        Button btn4 = (Button) findViewById(R.id.btnFour);
+        Button btn1 = findViewById(R.id.btnOne);
+        Button btn2 = findViewById(R.id.btnTwo);
+        Button btn3 = findViewById(R.id.btnThree);
+        Button btn4 = findViewById(R.id.btnFour);
 
         btn1.setOnClickListener(e -> {
             Intent nextScreen = new Intent(LandingPageActivity.this, FoodActivity.class);

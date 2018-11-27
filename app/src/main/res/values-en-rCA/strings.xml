@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FinalProject</string>
     <string name="buttonOne">Food Nutrition Database</string>
@@ -7,7 +8,7 @@
 
     <string name="app_label">Food Nutrition Database</string>
     <string name="search_hint">ex. apple...</string>
-    <string name="addToFav">Add to favorites</string>
+    <string name="addToFav">Add to favourites</string>
     <string name="filters">Filters</string>
     <string name="help">Help</string>
     <string name="min">min</string>
@@ -16,11 +17,11 @@
     <string name="fat">Fat</string>
     <string name="foodSearch">Search foods</string>
     <string name="authorInfo">Created by Harry Hum</string>
-    <string name="instructionsFood">Search the food database for any food item to retrieve nutrition information. Optionally filter food items by calories and fat. Add food items to a list of favorites and check items to calculate total calories and fats.</string>
-    <string name="favAdded">Added to favorites</string>
+    <string name="instructionsFood">Search the food database for any food item to retrieve nutrition information. Optionally filter food items by calories and fat. Add food items to a list of favourites and check items to calculate total calories and fats.</string>
+    <string name="favAdded">Added to favourites</string>
     <string name="undo">Undo</string>
-    <string name="alreadyExists">Item is already in favorites!</string>
-    <string name="goToFav">Go to favorites</string>
+    <string name="alreadyExists">Item is already in favourites!</string>
+    <string name="goToFav">Go to favourites</string>
     <string name="itemRemoved">Item removed</string>
     <string name="addTag">Add tag:</string>
     <string name="tagHint">ex. breakfast</string>
