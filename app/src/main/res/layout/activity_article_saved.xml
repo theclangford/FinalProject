@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/articleSavedActivity">
+
+    <ListView
+        android:id="@+id/savedArticleList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f8f6fa"
+        android:padding="5dp" />
+
+
+    <TextView
+        android:id="@+id/statistic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/savedArticleList"
+        android:background="#93c881" />
+</RelativeLayout>

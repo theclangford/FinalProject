@@ -1,15 +1,22 @@
-package group.finalproject;
+package group.finalproject.cbc;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,16 +34,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import group.finalproject.cbc.RssModel;
+import group.finalproject.R;
 
-public class CBCActivity extends Activity {
+public class CBCActivity extends AppCompatActivity {
     private final static String TAG = "CBCActivity";
     private String rssUrl = "https://www.cbc.ca/cmlink/rss-world";
 
     private ListView newsList;
     private List<RssModel> rssNews;
     private RssNewsListAdapter rssNewsListAdapter;
+    private android.support.v7.widget.Toolbar toolbar;
+    protected AlertDialog informationDialog;
     private ProgressBar progressBar;
+    private TextView help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,10 @@ public class CBCActivity extends Activity {
         newsList = findViewById(R.id.newsList);
         progressBar = findViewById(R.id.progressBar);
 
+        toolbar = findViewById(R.id.cbcToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.CBCNewsTitle);
+
         //Run fetching cbc news
         new FetchFeedTask().execute((Void) null);
 
@@ -55,15 +69,63 @@ public class CBCActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RssModel rssModel = (RssModel) newsList.getItemAtPosition(position);
                 Intent i = new Intent(CBCActivity.this, ArticleDetails.class);
+                System.out.println("Title RSS - " + rssModel.getTitle());
                 i.putExtra("articleTitle", rssModel.getTitle());
-                i.putExtra("articleText", "Text should be here");
                 i.putExtra("articleLink", rssModel.getLink());
+                i.putExtra("showSaveButton", true);
                 startActivityForResult(i, 11);
             }
         });
         //Set adapter
         rssNewsListAdapter = new RssNewsListAdapter(this);
         newsList.setAdapter(rssNewsListAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.cbc_main_actions, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.savedArticles:
+                Intent openSavedArticles = new Intent(this, ArticlesSaved.class);
+                startActivity(openSavedArticles);
+                break;
+            case R.id.cbcHelp:
+                showInformationDialog();
+                break;
+        }
+        return true;
+    }
+
+    protected void showInformationDialog() {
+        informationDialog = new AlertDialog.Builder(this).create();
+
+        TextView title = new TextView(this);
+
+        title.setText("Help");
+        title.setPadding(12, 12, 12, 12);
+        title.setTextSize(17);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        informationDialog.setCustomTitle(title);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View cbcHelp = inflater.inflate(R.layout.cbc_help, null);
+        TextView versionInfo = cbcHelp.findViewById(R.id.helpVersionInfo);
+        versionInfo.setText("Activity version: " + 1);
+        float  dpi = this.getResources().getDisplayMetrics().density;
+
+        informationDialog.setView(cbcHelp, (int)(15*dpi), (int)(15*dpi), (int)(15*dpi), (int)(15*dpi));
+
+        new Dialog(getApplicationContext());
+        informationDialog.show();
     }
 
     /**
@@ -76,7 +138,6 @@ public class CBCActivity extends Activity {
     private List<RssModel> parseFeed(InputStream inputStream) throws XmlPullParserException, IOException {
         String title = null;
         String link = null;
-        String description = null;
         boolean isItem = false;
         List<RssModel> items = new ArrayList<>();
 
@@ -103,6 +164,8 @@ public class CBCActivity extends Activity {
 
                 if (eventType == XmlPullParser.START_TAG) {
                     if (name.equalsIgnoreCase("item")) {
+                        title = null;
+                        link = null;
                         isItem = true;
                         continue;
                     }
@@ -126,8 +189,6 @@ public class CBCActivity extends Activity {
                         RssModel item = new RssModel(title, link);
                         items.add(item);
                     }
-                    title = null;
-                    link = null;
                     isItem = false;
                 }
             }

@@ -4,44 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/articleTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp"
-        android:text="Article title" />
+        android:layout_below="@+id/saveArticleButton"
+        android:text="Article Title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
-
-    <TextView
-        android:id="@+id/articleText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="33dp"
-        android:text="Article text" />
 
     <TextView
         android:id="@+id/articleLink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/saveArticleButton"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="-89dp"
         android:text="Article link" />
+
+    <TextView
+        android:id="@+id/articleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/articleTitle"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        android:text="Article text" />
+
 
     <Button
         android:id="@+id/saveArticleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="89dp"
-        android:text="Save article"/>
+        android:layout_below="@id/articleLink"
+        android:text="Save article" />
 </RelativeLayout>

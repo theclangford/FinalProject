@@ -30,4 +30,9 @@
     <string name="food">Food</string>
     <string name="bus">Bus</string>
     <string name="cbc">CBC</string>
+
+    <string name="CBCNewsTitle">CBC news</string>
+    <string name="Saved">Saved</string>
+    <string name="cbcHelpInstruction">View resent cbc news and save them. </string>
+
 </resources>
