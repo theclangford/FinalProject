@@ -18,6 +18,7 @@
         android:id="@+id/statistic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="3dp"
         android:layout_below="@+id/savedArticleList"
         android:background="#93c881" />
 </RelativeLayout>

@@ -45,7 +45,7 @@ public class ArticlesSaved extends AppCompatActivity {
             startActivityForResult(i, 11);
         });
         Statistic statistic = cbcDatabaseHelper.getStatistic();
-        String statisticText = "Number of saved news: " + statistic.getSum() + "\n" +
+        String statisticText = "Number of saved words: " + statistic.getSum() + "\n" +
                 "Average word count: " + statistic.getAvg() + "\n" +
                 "Max word count: " + statistic.getAvg() + "\n" +
                 "Min word count:" + statistic.getMin();

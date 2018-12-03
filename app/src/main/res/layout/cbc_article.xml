@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/saveArticleButton"
         android:text="Article Title"
+        android:padding="6dp"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
 

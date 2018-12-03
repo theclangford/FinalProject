@@ -14,11 +14,12 @@ public class CBCDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CBCArticles.db";
     private static int VERSION_NUM = 5;
 
+    private static final String TABLE_NAME = "article";
+
     private static final String KEY_ID = "_id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_TEXT = "text";
     private static final String KEY_LINK = "link";
-    private static final String TABLE_NAME = "article";
     private static final String KEY_WORD_COUNT = "word_count";
 
     private static final String CREATE_CBC_ARTICLE_TABLE = "create table "

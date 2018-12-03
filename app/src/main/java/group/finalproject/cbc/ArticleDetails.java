@@ -32,7 +32,15 @@ public class ArticleDetails extends Activity {
         }
     }
 
+    /**
+     * getArticle Text - load text of the article for saving and displaying
+     * @param articleURL
+     */
     private void getArticleText(String articleURL){
+
+        /**
+         * Creates thread for reading article text
+         */
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,6 +57,7 @@ public class ArticleDetails extends Activity {
                     builder.append("Error : ").append(e.getMessage()).append("\n");
                 }
 
+                //runOnUiThread is used to update UI of main activity
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -64,6 +73,13 @@ public class ArticleDetails extends Activity {
         }).start();
     }
 
+    /**
+     * Display content of an article by using ArticleFragment
+     * @param title
+     * @param text
+     * @param link
+     * @param showSaveButton
+     */
     private void displayArticle(String title, String text, String link, boolean showSaveButton){
         ArticleFragment mf = new ArticleFragment();
         Bundle fragmentArgs = new Bundle();

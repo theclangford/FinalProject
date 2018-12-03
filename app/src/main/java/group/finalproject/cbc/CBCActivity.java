@@ -36,17 +36,36 @@ import java.util.List;
 
 import group.finalproject.R;
 
+/**
+ *  Main activity for CBC news application
+ */
+
 public class CBCActivity extends AppCompatActivity {
     private final static String TAG = "CBCActivity";
+    /**
+     * rssURL - for saving rss cbc-news url
+     */
     private String rssUrl = "https://www.cbc.ca/cmlink/rss-world";
 
+
+    /**
+     * Definition of GUI elements
+     */
     private ListView newsList;
-    private List<RssModel> rssNews;
-    private RssNewsListAdapter rssNewsListAdapter;
     private android.support.v7.widget.Toolbar toolbar;
     protected AlertDialog informationDialog;
     private ProgressBar progressBar;
     private TextView help;
+
+    /**
+     * List rssNews - list of loaded news
+     */
+    private List<RssModel> rssNews;
+
+    /**
+     * rssNewsListAdapter - adapter to work with each rss news item
+     */
+    private RssNewsListAdapter rssNewsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +75,7 @@ public class CBCActivity extends AppCompatActivity {
         rssNews = new ArrayList<>();
         newsList = findViewById(R.id.newsList);
         progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         toolbar = findViewById(R.id.cbcToolbar);
         setSupportActionBar(toolbar);
@@ -69,7 +89,6 @@ public class CBCActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RssModel rssModel = (RssModel) newsList.getItemAtPosition(position);
                 Intent i = new Intent(CBCActivity.this, ArticleDetails.class);
-                System.out.println("Title RSS - " + rssModel.getTitle());
                 i.putExtra("articleTitle", rssModel.getTitle());
                 i.putExtra("articleLink", rssModel.getLink());
                 i.putExtra("showSaveButton", true);
@@ -171,7 +190,7 @@ public class CBCActivity extends AppCompatActivity {
                     }
                 }
 
-                Log.d("CBCActivity", "Parsing name ==> " + name);
+                Log.d(TAG, "Parsing name ==> " + name);
                 String result = "";
                 if (xmlPullParser.next() == XmlPullParser.TEXT) {
                     result = xmlPullParser.getText();
@@ -192,7 +211,6 @@ public class CBCActivity extends AppCompatActivity {
                     isItem = false;
                 }
             }
-            progressBar.setVisibility(View.INVISIBLE);
             return items;
         } finally {
             inputStream.close();
@@ -200,11 +218,18 @@ public class CBCActivity extends AppCompatActivity {
     }
 
     /**
-     * Task for fetching
+     * Task for fetching - reading/grabbing new from rss - url
+     *
      */
     private class FetchFeedTask extends AsyncTask<Void, Void, Boolean> {
+        /**
+         *
+         * @param voids
+         * @return - returns true in case of successful parsing
+         */
         @Override
         protected Boolean doInBackground(Void... voids) {
+            progressBar.setVisibility(View.VISIBLE);
             if (TextUtils.isEmpty(rssUrl))
                 return false;
 
@@ -224,8 +249,13 @@ public class CBCActivity extends AppCompatActivity {
             return false;
         }
 
+        /**
+         * onPostExecute - depending on the result of execution of doInBackground - this method executes the further actions
+         * @param success
+         */
         @Override
         protected void onPostExecute(Boolean success) {
+            progressBar.setVisibility(View.INVISIBLE);
             if (success) {
                 rssNewsListAdapter.notifyDataSetChanged();
             }
@@ -233,7 +263,7 @@ public class CBCActivity extends AppCompatActivity {
     }
 
     /**
-     * RssNewsList Adapter
+     * RssNewsList Adapter - adapter to configure the output of ListView
      */
     private class RssNewsListAdapter extends ArrayAdapter<RssModel> {
 
@@ -251,6 +281,14 @@ public class CBCActivity extends AppCompatActivity {
 
         }
 
+
+        /**
+         *
+         * @param position
+         * @param convertView
+         * @param parent
+         * @return - returns view of each element in the List on the main page
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -275,6 +313,10 @@ public class CBCActivity extends AppCompatActivity {
                     Html.fromHtml("<a href=\""+rss.getLink() +"\">" + rss.getTitle() + "</a>"));
             return convertView;
         }
+
+        /**
+         * ViewHolder - is a holder of fields that should be present in each item list of the List View
+         */
 
         class ViewHolder {
             private TextView rssTitleTextView;

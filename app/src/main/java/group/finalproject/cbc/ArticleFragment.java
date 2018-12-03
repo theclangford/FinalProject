@@ -46,8 +46,7 @@ public class ArticleFragment extends Fragment {
 
         boolean showSaveButton = messageBundle.getBoolean("showSaveButton");
         Button saveArticleButton = view.findViewById(R.id.saveArticleButton);
-        System.out.println("Title after sending = " +messageBundle.getString("articleTitle") );
-        System.out.println("Text = " + messageBundle.getString("articleText"));
+
         title = messageBundle.getString("articleTitle");
         text = messageBundle.getString("articleText");
         link = messageBundle.getString("articleLink");
@@ -57,12 +56,11 @@ public class ArticleFragment extends Fragment {
             articleTitleView.setText(title);
             articleLinkView.setText(Html.fromHtml("<a href=\""+ link + "\">" + link + "</a>"));
         } else {
-            articleLinkView.setText(link);
+            articleLinkView.setText(Html.fromHtml("<a href=\""+ link + "\">" + link + "</a>"));
             articleTextView.setText(text);
             articleTitleView.setText(title);
             saveArticleButton.setVisibility(View.INVISIBLE);
         }
-
 
         articleLinkView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +83,11 @@ public class ArticleFragment extends Fragment {
         return view;
     }
 
+    /**
+     * getWordCount - function to count words in the text
+     * @param text
+     * @return
+     */
     private int getWordCount(String text){
         if(text != null && text.length() > 0)
         return text.split(" ").length;
