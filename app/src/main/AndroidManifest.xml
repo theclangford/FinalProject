@@ -14,6 +14,7 @@
         <activity android:name=".LandingPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,16 +24,18 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".CBCActivity" />
+        <activity android:name=".cbc.CBCActivity" />
         <activity android:name=".MovieActivity" />
         <activity android:name=".BusActivity" />
         <activity android:name=".food.FoodFavourites" />
-        <activity android:name=".food.FoodDetail"/>
-        <activity android:name=".ArticleDetails"/>
+        <activity android:name=".food.FoodDetail" />
+        <activity android:name=".cbc.ArticleDetails" />
+        <activity android:name=".cbc.ArticlesSaved"></activity>
     </application>
 
 </manifest>

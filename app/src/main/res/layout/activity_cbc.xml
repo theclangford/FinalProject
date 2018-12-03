@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CBCActivity">
+    android:background="#fcfcfa"
+    tools:context=".cbc.CBCActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/cbcToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ede65f6d"/>
 
     <ListView
         android:id="@+id/newsList"
-        android:layout_width="366dp"
-        android:layout_height="488dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="9dp"
-        tools:layout_editor_absoluteY="7dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:layout_margin="4dp"
+        android:layout_below="@id/cbcToolbar"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        android:minWidth="50dp"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
