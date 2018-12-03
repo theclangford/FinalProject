@@ -13,26 +13,53 @@ import group.finalproject.R;
 
 public class TagSummaryAdapter extends ArrayAdapter {
 
+    /**
+     * List of tags
+     */
     ArrayList<Tag> list;
 
+    /**
+     * Constructor
+     * @param ctx
+     */
     TagSummaryAdapter(Context ctx) {
         super(ctx, 0);
     }
 
+    /**
+     * Sets the list of tags
+     * @param list
+     */
     public void setList(ArrayList<Tag> list) {
         this.list = list;
     }
 
+    /**
+     * Gets the amount of items in list
+     * @return list size
+     */
     @Override
     public int getCount() {
         return list.size();
     }
 
+    /**
+     * Gets item at position specified
+     * @param position
+     * @return tag at list position
+     */
     @Override
     public Tag getItem(int position) {
         return list.get(position);
     }
 
+    /**
+     * Gets the view for tag summary
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

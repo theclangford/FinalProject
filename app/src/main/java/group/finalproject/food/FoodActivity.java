@@ -211,7 +211,7 @@ public class FoodActivity extends AppCompatActivity {
     /**
      * Create the URL to query the edamam nutrition API.
      * @param query
-     * @return
+     * @return url query
      * @throws UnsupportedEncodingException
      */
     private URL createQueryURL(String query) throws UnsupportedEncodingException {
@@ -338,6 +338,10 @@ public class FoodActivity extends AppCompatActivity {
             return foodResults;
         }
 
+        /**
+         * Populates listview after search and presents toast with number of items found
+         * @param foods
+         */
         @Override
         protected void onPostExecute(ArrayList<Food> foods) {
             publishProgress(100);
@@ -449,30 +453,45 @@ public class FoodActivity extends AppCompatActivity {
         cancelBT.setLayoutParams(negBtnLP);
     }
 
+    /**
+     * Executes when activity is resumed
+     */
     @Override
     protected void onResume() {
         super.onResume();
         Log.i(ACTIVITY_NAME, "In onResume()");
     }
 
+    /**
+     * Executes when activity is started
+     */
     @Override
     protected void onStart() {
         super.onStart();
         Log.i(ACTIVITY_NAME, "In onStart()");
     }
 
+    /**
+     * Executes when activity is paused
+     */
     @Override
     protected void onPause() {
         super.onPause();
         Log.i(ACTIVITY_NAME, "In onPause()");
     }
 
+    /**
+     * Executes when activity is stopped
+     */
     @Override
     protected void onStop() {
         super.onStop();
         Log.i(ACTIVITY_NAME, "In onStop()");
     }
 
+    /**
+     * Executes when activity is destroyed
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

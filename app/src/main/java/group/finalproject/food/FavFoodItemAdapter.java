@@ -10,13 +10,27 @@ import group.finalproject.R;
 
 public class FavFoodItemAdapter extends FoodItemAdapter {
 
+    /**
+     * Instance of FoodDatabaseHelper
+     */
     private FoodDatabaseHelper foodDatabase;
 
+    /**
+     * Constructor calls super constructor and gets an instance of the FoodDatabaseHelper
+     * @param ctx
+     */
     FavFoodItemAdapter(Context ctx) {
         super(ctx);
         foodDatabase = FoodDatabaseHelper.getInstance(ctx);
     }
 
+    /**
+     * Gets all the views from the food_item layout and sets the appropriate values
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

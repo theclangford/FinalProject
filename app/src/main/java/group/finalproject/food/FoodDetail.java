@@ -9,6 +9,10 @@ import group.finalproject.R;
 
 public class FoodDetail extends AppCompatActivity {
 
+    /**
+     * Create food detail fragment and commit transaction upon creating activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

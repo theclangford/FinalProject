@@ -19,24 +19,81 @@ import static android.support.constraint.Constraints.TAG;
 
 public class FoodDatabaseHelper extends SQLiteOpenHelper {
 
+    /**
+     * Activity name
+     */
     private final String ACTIVITY_NAME = "FoodDatabaseHelper";
+
+    /**
+     * Database name
+     */
     private static final String DATABASE_NAME = "Favorites.db";
+
+    /**
+     * Version number
+     */
     private static final int VERSION_NUM = 1;
 
+    /**
+     * Table name
+     */
     private static final String TABLE_NAME = "FAVORITES";
 
+    /**
+     * Name of ID column
+     */
     private static final String KEY_ID = "_id";
+
+    /**
+     * Name of name column
+     */
     private static final String KEY_NAME = "NAME";
+
+    /**
+     * Name of calorie column
+     */
     private static final String KEY_CAL = "CAL";
+
+    /**
+     * Name of fat column
+     */
     private static final String KEY_FAT = "FAT";
+
+    /**
+     * Name of brand column
+     */
     private static final String KEY_BRAND = "BRAND";
+
+    /**
+     * Name of protein column
+     */
     private static final String KEY_PROTEIN = "PROTEIN";
+
+    /**
+     * Name of carbohydrates column
+     */
     private static final String KEY_CARB = "CARB";
+
+    /**
+     * Name of fiber column
+     */
     private static final String KEY_FIBER = "FIBER";
+
+    /**
+     * Name of tag column
+     */
     private static final String KEY_TAG = "TAG";
 
+    /**
+     * Static variable of FoodDatabaseHelper
+     */
     private static FoodDatabaseHelper helperInstance;
 
+    /**
+     * Gets the static instance of FoodDatabaseHelper
+     * @param ctx
+     * @return helperInstance
+     */
     public static synchronized FoodDatabaseHelper getInstance(Context ctx) {
         if (helperInstance == null)
             helperInstance = new FoodDatabaseHelper(ctx.getApplicationContext());
@@ -214,8 +271,16 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * Private constructor
+     * @param ctx
+     */
     private FoodDatabaseHelper(Context ctx) { super(ctx, DATABASE_NAME, null, VERSION_NUM); }
 
+    /**
+     * Create table in a database with the static final specifications
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME +
@@ -227,6 +292,12 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         Log.i(ACTIVITY_NAME, "Calling onCreate");
     }
 
+    /**
+     * Drop and create a new table on upgrade
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);

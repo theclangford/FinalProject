@@ -14,26 +14,53 @@ import group.finalproject.R;
 
 class FoodItemAdapter extends ArrayAdapter<Food> {
 
+    /**
+     * Stores list of food items
+     */
     ArrayList<Food> list;
 
+    /**
+     * Constructor
+     * @param ctx
+     */
     FoodItemAdapter(Context ctx) {
         super(ctx, 0);
     }
 
+    /**
+     * Sets the list
+     * @param list
+     */
     public void setList(ArrayList<Food> list) {
         this.list = list;
     }
 
+    /**
+     * Gets the amount of items in the list
+     * @return list size
+     */
     @Override
     public int getCount() {
         return list.size();
     }
 
+    /**
+     * Gets item at specified position
+     * @param position
+     * @return list item at position
+     */
     @Override
     public Food getItem(int position) {
         return list.get(position);
     }
 
+    /**
+     * Gets the views for the list
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return the result view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -17,19 +17,44 @@ import group.finalproject.R;
  */
 public class FoodDetailFragment extends Fragment {
 
+    /**
+     * Activity name
+     */
     private final String ACTIVITY_NAME = "FoodDetailFragment";
+
+    /**
+     * Parent activity
+     */
     FoodActivity parent;
+
+    /**
+     * True if device is in landscape mode
+     */
     boolean isLandscape;
 
+    /**
+     * Default constructor
+     */
     public FoodDetailFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Executes when fragment is created
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Inflates the fragment view
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +92,10 @@ public class FoodDetailFragment extends Fragment {
         return screen;
     }
 
+    /**
+     * Executes when fragment attaches to the activity
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
