@@ -32,6 +32,7 @@
 
     <string name="CBCNewsTitle">CBC news</string>
     <string name="Saved">Saved</string>
-    <string name="cbcHelpInstruction">View resent cbc news and save them. </string>
+    <string name="cbcHelpInstruction">This application loads CBC news and gives you possibility to save news on the phone.
+    To view saved news and statistic please go to Saved menu.</string>
 
 </resources>
