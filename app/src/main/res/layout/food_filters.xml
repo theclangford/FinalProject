@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/cal"
+            android:text="@string/cal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+
+        <EditText
+            android:id="@+id/calMin"
+            android:layout_toEndOf="@+id/cal"
+            android:hint="@string/min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_margin="5dp"
+            android:layout_alignBaseline="@+id/cal"/>
+
+        <EditText
+            android:id="@+id/calMax"
+            android:layout_toEndOf="@+id/calMin"
+            android:hint="@string/max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_margin="5dp"
+            android:layout_alignBaseline="@+id/cal"/>
+
+        <TextView
+            android:id="@+id/fat"
+            android:text="@string/fat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/cal"/>
+
+        <EditText
+            android:id="@+id/fatMin"
+            android:layout_toEndOf="@+id/fat"
+            android:hint="@string/min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_alignBaseline="@+id/fat"
+            android:layout_alignStart="@id/calMin"/>
+
+        <EditText
+            android:id="@+id/fatMax"
+            android:layout_toEndOf="@+id/fatMin"
+            android:hint="@string/max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_alignBaseline="@+id/fat"
+            android:layout_alignStart="@+id/calMax" />
+
+</RelativeLayout>

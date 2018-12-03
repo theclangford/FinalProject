@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp">
+
+    <TextView
+        android:id="@+id/addTag"
+        android:text="@string/addTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"/>
+
+    <EditText
+        android:id="@+id/editTag"
+        android:layout_toEndOf="@+id/addTag"
+        android:hint="@string/tagHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_margin="5dp"
+        android:layout_alignBaseline="@+id/addTag"/>
+
+</RelativeLayout>
