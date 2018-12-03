@@ -5,41 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".BusActivity">
-    <Button
+    tools:context=".BusActivity"
+    android:id="@+id/mainLayout">
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/newStopButton"
-        android:text="@string/buttonNewStop"/>
+        android:id="@+id/bus_toolbar"/>
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
+        style="?android:attr/progressBarStyleHorizontal"
         android:id="@+id/progressBarBus"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/labelStopData"
-        android:text="@string/labelStopData"/>
-    <ListView
-        android:id="@+id/listStopNumber"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"></ListView>
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/labelStopData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelStopData" />
+            <ListView
+                android:id="@+id/listStopNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/labelNumberData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/labelNumberData" />
+            <ListView
+                android:id="@+id/listBusNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/labelNumberData"
-            android:text="@string/labelNumberData"/>
-        <ListView
-            android:id="@+id/listBusNumber"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></ListView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -114,12 +134,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"/>
-            <TextView
-                android:id="@+id/textAdjustedtime"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"/>
+                android:orientation="horizontal"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/textAdjustedtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:id="@+id/snackBttn"
+                    android:text="@string/snackBttn"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

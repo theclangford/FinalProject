@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="">
+
+    <item
+        android:id="@+id/newStopButton"
+        android:title="BusOne"
+        android:icon="@drawable/busone"
+        android:orderInCategory="101"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/remStopButton"
+        android:title="BusTwo"
+        android:icon="@drawable/bustwo"
+        android:orderInCategory="201"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/bus_help"
+        android:title="Help"
+        app:showAsAction="never"/>
+</menu>

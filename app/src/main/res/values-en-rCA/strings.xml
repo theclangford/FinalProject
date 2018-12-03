@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="busInstructions">\nSelect a stop number, and one of the displayed route numbers to view information about the next trip.
+                                    \n\nTo add a new stop select (+) from the menu
+                                    \n\nTo remove a stop, select it form the list of stops and then select (-) from the menu.  Confirm to delete.
+                                    \n\nAvg button displays the average late time of all buses viewed to date.
+                                    \n\nNote: when viewing both the list of stops and list of buses are scrollable
+                                    \n\nThis is a special message brought to you by Canadian English.</string>
+
     <string name="app_name">FinalProject</string>
     <string name="buttonOne">Food Nutrition Database</string>
     <string name="buttonTwo">CBC News Reader</string>
