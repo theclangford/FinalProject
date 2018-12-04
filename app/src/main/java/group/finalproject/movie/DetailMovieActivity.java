@@ -1,13 +1,16 @@
-package group.finalproject;
+package group.finalproject.movie;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class MovieActivity extends Activity {
+import group.finalproject.R;
+
+public class DetailMovieActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie);
+        setContentView(R.layout.activity_detail_movie);
     }
+
 }

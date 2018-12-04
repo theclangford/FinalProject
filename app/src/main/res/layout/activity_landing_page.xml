@@ -10,45 +10,49 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/landingToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
-    <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal"
-    android:layout_weight="1">
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/buttonOne"
-            android:id="@+id/btnOne"/>
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/buttonTwo"
-            android:id="@+id/btnTwo"/>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
         <Button
+            android:id="@+id/btnOne"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="@string/buttonThree"
-            android:id="@+id/btnThree"/>
+            android:text="@string/buttonOne" />
+
         <Button
+            android:id="@+id/btnTwo"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="@string/buttonFour"
             android:layout_weight="1"
-            android:id="@+id/btnFour"/>
+            android:text="@string/buttonTwo" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnThree"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/buttonThree" />
+
+        <Button
+            android:id="@+id/btnFour"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/buttonFour" />
+    </LinearLayout>
 
 
 </LinearLayout>
