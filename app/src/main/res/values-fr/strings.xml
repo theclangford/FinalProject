@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Projet final</string>
+    <string name="buttonOne">Base de données sur la nutrition alimentaire</string>
+    <string name="buttonTwo">Lecteur de nouvelles de CBC</string>
+    <string name="buttonThree">Informations sur le film</string>
+    <string name="buttonFour">Ligne de bus OC</string>
+    <string name="title_activity_detail_movie">Activitédétailléedufilm</string>
+    <string name="title_activity_movie_details">Activité MovieDetails</string>
+    <string name="enter_movie">Entrez le titre du film</string>
+
+    <string name="navigation_drower_open">Ouvrir tiroir de navigation</string>
+    <string name="navigation_drower_Close">Fermer le tiroir de navigation</string>
+
+    <string name="text_with_paragraphs">
+      Remplissez la zone de texte et cliquez sur Rechercher pour trouver
+        le film. Après le titre du film est en place
+        à l\'écran, cliquez dessus pour plus
+        information
+    </string>
+    <string name="search">CHERCHER</string>
+    <string name="help">Aidez-moi</string>
+    <string name="about">Sur</string>
+    <string name="gotit">JE L\'AI</string>
+    <string name="My_Movie_List">Ma liste de filmt</string>
+    <string name="title_activity_list_movie">Liste de film</string>
+
+
+</resources>

@@ -13,6 +13,7 @@ import android.content.Intent;
 import group.finalproject.food.FoodActivity;
 import group.finalproject.cbc.CBCActivity;
 import group.finalproject.food.FoodFavourites;
+import group.finalproject.movie.MovieActivity;
 
 
 public class LandingPageActivity extends AppCompatActivity {

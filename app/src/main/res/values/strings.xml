@@ -51,4 +51,25 @@
     <string name="cbcHelpInstruction">This application loads CBC news and gives you possibility to save news on the phone.
     To view saved news and statistic please go to Saved menu.</string>
 
+
+    <string name="title_activity_detail_movie">DetailMovieActivity</string>
+    <string name="title_activity_movie_details">MovieDetailsActivity</string>
+    <string name="enter_movie">Enter The Movie Title</string>
+
+    <string name="navigation_drower_open">Open navigation drower</string>
+    <string name="navigation_drower_Close">Close navigation drower</string>
+
+    <string name="text_with_paragraphs">
+       Fill the text box and hit search to find
+        the movie. After the movie title is up
+        in the screen, click it for more
+        information
+    </string>
+    <string name="search">SEARCH</string>
+    <string name="about">About</string>
+    <string name="gotit">GOT IT</string>
+    <string name="title_activity_full_screen_image">FullScreenImageActivity</string>
+    <string name="title_activity_list_movie">Movie List</string>
+    <string name="My_Movie_List">My Movie List</string>
+
 </resources>

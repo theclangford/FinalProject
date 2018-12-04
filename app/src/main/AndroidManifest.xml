@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LandingPageActivity">
             <intent-filter>
@@ -30,12 +31,40 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".cbc.CBCActivity" />
-        <activity android:name=".MovieActivity" />
         <activity android:name=".BusActivity" />
         <activity android:name=".food.FoodFavourites" />
         <activity android:name=".food.FoodDetail" />
         <activity android:name=".cbc.ArticleDetails" />
-        <activity android:name=".cbc.ArticlesSaved"></activity>
+        <activity android:name=".cbc.ArticlesSaved" />
+
+
+        <activity
+
+            android:name=".movie.MovieActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity
+            android:name=".movie.DetailMovieActivity"
+            android:label="@string/title_activity_detail_movie" />
+        <activity
+            android:name=".movie.MovieDetailsActivity"
+            android:label="@string/title_activity_movie_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FullScreenImageActivity"
+            android:label="@string/title_activity_full_screen_image"
+            android:parentActivityName="android.support.v7.app.AppCompatActivity"
+            android:theme="@style/AppFullScreenTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v7.app.AppCompatActivity" />
+        </activity>
+        <activity
+            android:name=".movie.ListMovieActivity"
+            android:label="@string/title_activity_list_movie" />
+
     </application>
 
 </manifest>
